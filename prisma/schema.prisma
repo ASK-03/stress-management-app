@@ -1,0 +1,58 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+  // directUrl = env("DIRECT_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id           String     @id @default(uuid())
+  email        String     @unique
+  name         String?
+  reviewRating Int?
+  chats        Chat[]     @relation("UserChats")
+  channels     Channels[] @relation("UserChannels")
+  reviews      Review[]   @relation("UserReviews")
+
+  @@map("users")
+}
+
+model Chat {
+  id        String   @id @default(uuid())
+  sender    String // stores if the message is sent by the user or AI
+  message   String // Stores the chat message content
+  createdAt DateTime @default(now()) // Automatically sets the current timestamp
+  updatedAt DateTime @updatedAt // Automatically updates the timestamp when the message is updated
+
+  // Foreign key to reference the User model
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade, name: "UserChats")
+
+  @@map("chats")
+}
+
+model Channels {
+  id   String @id @default(uuid())
+  name String
+
+  // Foreign key to reference the User model
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade, name: "UserChannels")
+
+  @@map("channels")
+}
+
+model Review {
+  id        String   @id @default(uuid())
+  rating    Int
+  comment   String?
+  createdAt DateTime @default(now())
+
+  userId String
+  User   User   @relation(fields: [userId], references: [id], onDelete: Cascade, name: "UserReviews")
+
+  @@map("reviews")
+}
