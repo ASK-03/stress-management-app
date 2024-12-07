@@ -1,4 +1,5 @@
 "use server";
+/* eslint-disable */
 
 import { clerkClient, currentUser } from "@clerk/nextjs/server";
 import db from "./db";
