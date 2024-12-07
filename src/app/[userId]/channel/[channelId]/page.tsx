@@ -39,13 +39,13 @@ interface Props {
 export default function Page({ params: { channelId } }: Props) {
   const router = useRouter();
   const channelName = useSearchParams().get("channelName") || "";
-  const room = channelId;
+  
   const { user } = useUser();
 
   if (!user) {
     return <div>Unauthorized</div>;
   }
-
+  const room = channelId;
   const name = `${faker.person.firstName()} ${faker.person.lastName()}`;
   const [token, setToken] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
