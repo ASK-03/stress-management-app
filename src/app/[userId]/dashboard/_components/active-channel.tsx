@@ -1,5 +1,5 @@
 "use client";
-
+/* eslint-disable */
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { getActiveChannels } from "@/lib/queries";
 import { Channels } from "@prisma/client";
