@@ -37,11 +37,6 @@ interface Props {
 }
 
 export default function Page({ params: { channelId } }: Props) {
-  const { user } = useUser();
-  if (!user) {
-    return <div>Unauthorized</div>;
-  }
-
   const router = useRouter();
   const channelName = useSearchParams().get("channelName") || "";
   const room = channelId;
@@ -52,6 +47,13 @@ export default function Page({ params: { channelId } }: Props) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [review, setReview] = useState("");
   const [rating, setRating] = useState(0); // State to track star rating
+  const { user } = useUser();
+  
+  if (!user) {
+    return <div>Unauthorized</div>;
+  }
+
+
 
   useEffect(() => {
     const fetchToken = async () => {
