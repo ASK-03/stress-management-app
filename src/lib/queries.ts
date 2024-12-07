@@ -2,7 +2,7 @@
 
 import { clerkClient, currentUser } from "@clerk/nextjs/server";
 import db from "./db";
-import { subDays, startOfWeek, startOfMonth, startOfYear } from "date-fns";
+import { subDays, startOfMonth, startOfYear } from "date-fns";
 import { User } from "@prisma/client";
 
 export const getAuthUserDetails = async () => {

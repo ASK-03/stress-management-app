@@ -19,7 +19,7 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
   const [userState, setUserState] = useState<UserState>("Volunteer"); // Default state
 
   return (
-    <UserContext.Provider value={{ userState, setUserState }}>
+    <UserContext.Provider value={{ userState, setUserState}}>
       {children}
     </UserContext.Provider>
   );

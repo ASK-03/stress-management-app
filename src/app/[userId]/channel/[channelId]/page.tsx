@@ -42,15 +42,17 @@ export default function Page({ params: { channelId } }: Props) {
   const room = channelId;
   const { user } = useUser();
 
+  if (!user) {
+    return <div>Unauthorized</div>;
+  }
+
   const name = `${faker.person.firstName()} ${faker.person.lastName()}`;
   const [token, setToken] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [review, setReview] = useState("");
   const [rating, setRating] = useState(0); // State to track star rating
 
-  if (!user) {
-    return <div>Unauthorized</div>;
-  }
+
 
   useEffect(() => {
     (async () => {
@@ -64,7 +66,7 @@ export default function Page({ params: { channelId } }: Props) {
         console.error(e);
       }
     })();
-  }, []);
+  }, [name,room]);
 
   const handleDisconnect = () => {
     setIsModalOpen(true);
@@ -72,7 +74,7 @@ export default function Page({ params: { channelId } }: Props) {
 
   const handleReviewSubmit = async () => {
     try {
-      const resp = await submitReviewForChannel(
+      await submitReviewForChannel(
         channelId,
         user.id,
         rating,

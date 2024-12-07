@@ -1,21 +1,18 @@
 "use client";
 import { useUserContext } from "@/providers/user-type-provider";
-import { useUser } from "@clerk/nextjs";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import React from "react";
-import { ArrowBigDown, ArrowDown } from "lucide-react";
+import { ArrowDown } from "lucide-react";
 
-type Props = {};
 
-const UserStateDropdown = (props: Props) => {
-  const user = useUser();
+const UserStateDropdown = () => {
+
   const { userState, setUserState } = useUserContext();
   return (
     <DropdownMenu>
@@ -27,7 +24,7 @@ const UserStateDropdown = (props: Props) => {
         {["Volunteer", "Need Help"].map((state) => (
           <DropdownMenuItem
             key={state}
-            onClick={() => setUserState(state as any)}
+            onClick={() => setUserState(state as "Volunteer" | "Need Help")}
           >
             {state}
           </DropdownMenuItem>
