@@ -8,9 +8,11 @@ import {
   SmileIcon,
   UserIcon,
 } from "lucide-react";
-import Player from "lottie-react";
-import animationData from "@/public/robot.json";
 
+import animationData from "@/public/robot.json";
+import dynamic from "next/dynamic";
+
+const Player = dynamic(() => import('lottie-react'), { ssr: false });
 export default function Home() {
   return (
     <main className="w-full min-h-screen">
