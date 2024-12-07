@@ -49,12 +49,6 @@ export default function Page({ params: { channelId } }: Props) {
   const [rating, setRating] = useState(0); // State to track star rating
   const { user } = useUser();
   
-  if (!user) {
-    return <div>Unauthorized</div>;
-  }
-
-
-
   useEffect(() => {
     const fetchToken = async () => {
       try {
@@ -70,6 +64,10 @@ export default function Page({ params: { channelId } }: Props) {
 
     fetchToken();
   }, [name, room]);
+
+  if (!user) {
+    return <div>Unauthorized</div>;
+  }
 
   const handleDisconnect = () => {
     setIsModalOpen(true);
