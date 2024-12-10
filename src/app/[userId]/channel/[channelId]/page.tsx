@@ -40,20 +40,17 @@ export default function Page({ params: { channelId } }: Props) {
   const router = useRouter();
   const channelName = useSearchParams().get("channelName") || "";
   const room = channelId;
-  const { user } = useUser();
-
   const name = `${faker.person.firstName()} ${faker.person.lastName()}`;
+
+  // Declare hooks at the top
   const [token, setToken] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [review, setReview] = useState("");
   const [rating, setRating] = useState(0); // State to track star rating
-
-  if (!user) {
-    return <div>Unauthorized</div>;
-  }
-
+  const { user } = useUser();
+  
   useEffect(() => {
-    (async () => {
+    const fetchToken = async () => {
       try {
         const resp = await fetch(
           `/api/get-participant-token?room=${room}&username=${name}`
@@ -63,8 +60,14 @@ export default function Page({ params: { channelId } }: Props) {
       } catch (e) {
         console.error(e);
       }
-    })();
-  }, []);
+    };
+
+    fetchToken();
+  }, [name, room]);
+
+  if (!user) {
+    return <div>Unauthorized</div>;
+  }
 
   const handleDisconnect = () => {
     setIsModalOpen(true);
@@ -72,7 +75,7 @@ export default function Page({ params: { channelId } }: Props) {
 
   const handleReviewSubmit = async () => {
     try {
-      const resp = await submitReviewForChannel(
+      await submitReviewForChannel(
         channelId,
         user.id,
         rating,

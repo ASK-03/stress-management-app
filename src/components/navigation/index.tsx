@@ -11,7 +11,7 @@ type Props = {
   userId?: string;
 };
 
-const Navigation = async ({ isHero, userId }: Props) => {
+const Navigation = async ({ isHero}: Props) => {
   return (
     <>
       <div className="h-[4.5rem]"></div>

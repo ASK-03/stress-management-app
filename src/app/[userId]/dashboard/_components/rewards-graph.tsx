@@ -53,7 +53,7 @@ const RewardsGraph = ({ rewardsData }: Props) => {
               labelStyle={{ color: "#fff" }}
               cursor={{ fill: "rgba(31, 41, 55, 0.2)" }}
             />
-            <Bar dataKey="totalRating" radius={[10, 10, 0, 0]} minBarSize={5}>
+            <Bar dataKey="totalRating" radius={[10, 10, 0, 0]} barSize={5}>
               <defs>
                 <linearGradient
                   id="gradientBar"

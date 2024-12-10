@@ -19,7 +19,6 @@ export const useLLM = () => {
 
       if (!response.ok) {
         throw new Error("Failed to get chat response");
-        s;
       }
 
       const result = await response.json();
